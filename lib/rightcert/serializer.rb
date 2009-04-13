@@ -7,8 +7,7 @@ module RightCert
     # Initialize serializer, must be called prior to using it.
     #
     #  - 'identity':   Identity associated with serialized messages
-    #  - 'cert':       Certificate used to sign serialized messages and
-    #                  decrypt encrypted messages
+    #  - 'cert':       Certificate used to sign and decrypt serialized messages
     #  - 'key':        Private key corresponding to 'cert'
     #  - 'store':      Certificate store. Exposes certificates used for
     #                  encryption and signature validation.
@@ -40,20 +39,21 @@ module RightCert
         yaml = EncryptedDocument.new(yaml, certs).encrypted_data
       end
       sig = Signature.new(yaml, @cert, @key)
-      YAML.dump({ :id => @identity, :data => yaml, :signature => sig.to_s})
+      YAML.dump({ :id => @identity, :data => yaml, :signature => sig.data})
     end
     
     # Unserialize data using certificate store
     def Serializer.load(yaml)
       raise "Missing certificate store" unless @store
+      raise "Missing certificate" unless @cert || !@encrypt
+      raise "Missing certificate key" unless @key || !@encrypt
       data = YAML.load(yaml)
       sig = Signature.from_data(data[:signature])
       certs = @store.get_signer(data[:id])
       certs = [ certs ] unless certs.respond_to?(:each)
       yml = data[:data] if certs.any? { |c| sig.match?(c) }
       if yml && @encrypt
-        key, cert = @store.get_encryption_key_and_cert(data[:id])
-        yml = EncryptedDocument.from_data(yml).decrypted_data(key, cert)
+        yml = EncryptedDocument.from_data(yml).decrypted_data(@key, @cert)
       end
       YAML.load(yml) if yml
     end

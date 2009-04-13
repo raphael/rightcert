@@ -7,7 +7,6 @@ module RightCert
     # Initialize cache proxy with given certificate store.
     def initialize(store)
       @signer_cache = CertificateCache.new
-      @encrypter_cache = CertificateCache.new
       @store = store
     end
     
@@ -19,11 +18,6 @@ module RightCert
     # Check cache for signer certificate
     def get_signer(id)
       @signer_cache.get(id) { @store.get_signer(id) }
-    end
-
-    # Check cache for encrypting certificate and key
-    def get_encryption_key_and_cert(id)
-      @encrypter_cache.get(id) { @store.get_encryption_key_and_cert(id) }
     end
 
   end  

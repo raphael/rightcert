@@ -28,7 +28,7 @@ module RightCert
 
     before(:all) do
       @certificate, @key = issue_cert
-      @store = StaticCertificateStore.new(@certificate, @certificate, @certificate, @key)
+      @store = StaticCertificateStore.new(@certificate, @certificate)
       @identity = "id"
       @data = "Test Data"
     end
