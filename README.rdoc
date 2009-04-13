@@ -97,10 +97,9 @@ It is important to understand that:
    decrypt it).
 
 A signing serializer thus needs access to the signer certificate and private 
-key. An encrypting serializer *also* needs access to the intended recipient
-certificate and private key. Since the data is not always intended to the same
-recipient there needs to be a dynamic way to retrieve the corresponding
-certificate and key. This is done using certificate stores.
+key. An encrypting serializer *also* needs access to the intended recipients
+certificates. There needs to be a way to dynamically retrieve the corresponding
+certificates. This is done using certificate stores.
 
 Certificate stores associate identities with certificates. The identity is 
 associated when the data is serialized and can be keyed off to retrieve the 
