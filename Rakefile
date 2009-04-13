@@ -1,15 +1,15 @@
 require 'rubygems'
 require 'rake/gempackagetask'
-require "spec/rake/spectask"
+require 'spec/rake/spectask'
 require 'rake/rdoctask'
 require 'rake/clean'
 
 GEM = "rightcert"
-VER = "0.1.0"
-AUTHOR = "Raphael Simon"
+VER = "0.3.0"
+AUTHOR = "RightScale"
 EMAIL = "raphael@rightscale.com"
-HOMEPAGE = "http://rightcert.rubyforge.org/"
-SUMMARY = "Small ruby library for simple X.509 certificate generation and signature. Allows signing and/or encrypting data using PKCS7."
+HOMEPAGE = "http://github.com/rightscale/right_cert/tree/master"
+SUMMARY = "Secure serialization using X.509 Certificates for digital signatures and encryption"
 
 Dir.glob('tasks/*.rake').each { |r| Rake.application.add_import r }
 

@@ -6,13 +6,13 @@ module RightCert
     
     # Initialize serializer, must be called prior to using it.
     #
-    #  * 'identity':   Identity associated with serialized messages
-    #  * 'cert':       Certificate used to sign serialized messages and
+    #  - 'identity':   Identity associated with serialized messages
+    #  - 'cert':       Certificate used to sign serialized messages and
     #                  decrypt encrypted messages
-    #  * 'key':        Private key corresponding to 'cert'
-    #  * 'store':      Certificate store. Exposes certificates used for
+    #  - 'key':        Private key corresponding to 'cert'
+    #  - 'store':      Certificate store. Exposes certificates used for
     #                  encryption and signature validation.
-    #  * 'encrypt':    Whether data should be signed and encrypted ('true')
+    #  - 'encrypt':    Whether data should be signed and encrypted ('true')
     #                  or just signed ('false'), 'true' by default.
     #
     def Serializer.init(identity, cert, key, store, encrypt = true)
@@ -21,6 +21,11 @@ module RightCert
       @key = key
       @store = store
       @encrypt = encrypt
+    end
+    
+    # Was serializer initialized?
+    def Serializer.initialized?
+      @identity && @cert && @key && @store
     end
 
     # Serialize message and sign it using X.509 certificate
