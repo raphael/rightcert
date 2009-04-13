@@ -3,7 +3,7 @@ module RightCert
   # Simple certificate store, serves a static set of certificates.
   class StaticCertificateStore
     
-    # Initialize store
+    # Initialize store:
     #
     #  - Signer certificates are used when loading data to check the digital
     #    signature. The signature associated with the serialized data needs
